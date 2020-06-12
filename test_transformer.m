@@ -8,7 +8,7 @@ function test_transformer()
 
 close('all');
 addpath('mirroring_method')
-addpath('utils')
+addpath('mirroring_utils')
 
 %% param
 

@@ -3,26 +3,28 @@ classdef MirroringMethod < handle
     %
     %    Mirroring method for magnetic field computation of conductors surrounded by magnetic materials.
     %
+    %    The following results can be extracted:
+    %        - magnetic field (vector or norm)
+    %        - inductance matrix
+    %        - energy
+    %
     %    Different boundary conditions are included:
-    %        - conductors in free space
+    %        - conductors in free space (no magnetic boundary)
     %        - conductors surrounded by a single magnetic boundary
     %        - conductors surrounded by two parallel magnetic boundaries
     %        - conductors surrounded by a box of four magnetic boundaries
     %
-    %    A finite permeability can be considered for the boundary conditions.
-    %    The conductors are accepted to be round with an uniform current density.
-    %    The radius and the position of the different conductors is arbitrary.
-    %    No HF effects (skin, proximity, etc.) are considered.
+    %    The following additional features and constraints exist:
+    %        - a finite permeability can be considered for the boundary conditions
+    %        - the conductors are accepted to be round with an uniform current density
+    %        - the radius and the position of the different conductors is arbitrary
+    %        - line conductors (without zero radius) are accepted
+    %        - no HF effects (skin or proximity) are considered (can be added in post-processing)
     %
     %    The implementation allows the vectorized evaluation of many operating conditions:
     %        - the current is given as a matrix
     %        - the row represents the number of conductors
     %        - the column represents the number of operating conditions
-    %
-    %    The following results can be extracted:
-    %        - magnetic field (vector or norm)
-    %        - inductance matrix
-    %        - energy
     %
     %    Warning: For 2D problem, the energy is infinite for a single conductor (no return path exists).
     %        - Then the definition of the inductance is (intrisically) ill-formulated.
@@ -38,7 +40,7 @@ classdef MirroringMethod < handle
     %        - For some problem, many images can be required.
     %        - If many conductors are simulated, the (non-sparse) matrices are large.
     %
-    %    References:
+    %    References for the mirroring method:
     %        - Mühlethaler, J. / Modeling and multi-objective optimization of inductive power components / ETHZ / 2012
     %        - Ferreira, J.A. / Electromagnetic Modelling of Power Electronic Converters /Kluwer Academics Publishers / 1989.
     %        - Bossche, A. and Valchev, V. / Inductors and Transformers for Power Electronics / CRC Press / 2005.
