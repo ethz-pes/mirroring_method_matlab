@@ -29,7 +29,6 @@ The following examples are included:
 * [test_inductor.m](test_inductor.m) - Simulation of an inductor with air gaps
 * [test_transformer.m](test_transformer.m) - Simulation of a transformer
 * [test_litz.m](test_litz.m) - Current sharing problem for untwisted litz wires
-[test_litz.md]
 
 ### Inductor Field
 
@@ -65,7 +64,7 @@ The tool is tested with the following MATLAB setup:
 ## References
 
 Thw following references explain the theory and applications of the mirroring method:
-* Mühlethaler, J. / Modeling and multi-objective optimization of inductive power components / ETHZ / 2012
+* Muehlethaler, J. / Modeling and multi-objective optimization of inductive power components / ETHZ / 2012
 * Ferreira, J.A. / Electromagnetic Modelling of Power Electronic Converters /Kluwer Academics Publishers / 1989.
 * Bossche, A. and Valchev, V. / Inductors and Transformers for Power Electronics / CRC Press / 2005.
 * Binns, K.J. and Lawrenson, P. J. / Analysis and Computation of Electric and Magnetic Field Problems / Elsevier/ 1973
