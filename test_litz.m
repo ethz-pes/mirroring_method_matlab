@@ -1,8 +1,15 @@
 function test_litz()
-% Test the mirroring method for a (non-transposed) litz wire
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Test the mirroring method with a current sharing problem between litz wires.
+%
+%    Two untwisted litz wires are defined.
+%    The field patterns and the inductance are computed.
+%    The frequency dependent current sharing problem is solved for the litz wires.
+%
+%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 close('all');
+addpath('mirroring_method')
+addpath('utils')
 
 %% param
 
@@ -40,40 +47,40 @@ conductor.n_conductor = 7+4;
 
 obj = MirroringMethod(bc, conductor);
 
-%% plot
+%% plot DC field patterns
 
-% current excitation
+% current excitation (DC sharing, homogeneous sharing)
 I_litz_1 = +(1./7).*ones(1, 7);
 I_litz_2 = -(1./4).*ones(1, 4);
-I_vec = [I_litz_1 I_litz_2].';
+I = [I_litz_1 I_litz_2].';
 
 % inductance matrix
-plot_inductance_matrix(obj)
+plot_inductance_matrix('inductance matrix', obj)
 
 % magnetic field in the conductors
-plot_field_conductor(obj, I_vec);
+plot_field_conductor('conductor field', obj, I);
 
 % magnetic field everywhere
-plot_field_space(obj, I_vec, 60, 30, 0.5e-3);
+plot_field_space('field distribution', obj, I, 60, 30, 0.5e-3);
 
-%% solve current sharing
+%% solve current sharing (frequency dependent)
 
 % frequency vector
 f_vec = logspace(log10(100), log10(100e3), 25);
 
-% conductor indices
+% conductor indices of the two litz wires
 idx_litz_1 = 1:7;
 idx_litz_2 = 8:11;
 
-% litz wire resistance
+% litz wire resistance of the two litz wires
 R_litz_1 = 10e-3;
 R_litz_2 = 5e-3;
 
-% total current 
-I_1 = +1;
-I_2 = -1;
+% total current of the two litz wires
+I_1 = +1.0;
+I_2 = -1.0;
 
-% get inductance
+% get inductance matrix
 L = obj.get_L();
 
 % solve the current sharing problem
@@ -82,7 +89,7 @@ group{2} = struct('idx', idx_litz_2, 'R', R_litz_2, 'I', I_2);
 [I_group, V_group] = solve_current_sharing(f_vec, L, group);
 
 % plot
-plot_current(f_vec, I_group{1}, V_group{1})
-plot_current(f_vec, I_group{2}, V_group{2})
+plot_current_sharing('current sharing: litz 1', f_vec, I_group{1}, V_group{1})
+plot_current_sharing('current sharing: litz 2', f_vec, I_group{2}, V_group{2})
 
 end

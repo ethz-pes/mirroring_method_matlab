@@ -1,43 +1,35 @@
-% =================================================================================================
-% Mirror the conductors with respect to the BC.
-% =================================================================================================
-%
-% Find the symmetry axis.
-% Mirror the conductors.
-% Weight the mirrored conductors.
-%
-% =================================================================================================
-%
-% See also:
-%     - mirroring_method (main class)
-%
-% =================================================================================================
-% Thomas Guillod <guillod@lem.ee.ethz.ch>
-% PES ETHZ
-% =================================================================================================
 classdef MirrorConductor < handle
+    % Mirror the conductors with respect to the boundary conditions.
+    %
+    %    Find the symmetry axis.
+    %    Mirror the conductors.
+    %    Weight the mirrored conductors.
+    %
+    %    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+
     %% properties
     properties (SetAccess = private, GetAccess = private)
-        bc % user defined boundary condition
-        conductor % user defined conductor
-        distance % struct with the distance to the pole and size of the 2d slice
-        bc_mirror % mirror axis for the BC (set by mirror_conductor)
-        conductor_mirror % mirrored conductor (set by mirror_conductor)
+        bc % struct: user defined boundary condition
+        conductor % struct: user defined conductors
+        distance % struct: distance to the pole and size of the 2d slice
+        bc_mirror % struct: mirror axis geometry for the boundary conditions
+        conductor_mirror % struct: all the mirrored conductors
     end
     
     %% init
     methods (Access = public)
         function self = MirrorConductor(bc, conductor)
-            % create the object
-            %     - bc - struct with the definition of the BC (type, position, permeability, number of mirror)
-            %     - conductor - struct with the definition of the conductor (position, radius, number)
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Constructor.
+            %
+            %    Parameters:
+            %        bc (struct): definition of the boundary conditions (type, position, permeability, number of mirror)
+            %        conductor (struct): definition of the conductors (position, radius, number)
             
             % set data
             self.bc = bc;
             self.conductor = conductor;
             
-            % compute the BC and the mirrored conductors
+            % compute the boundary conditions and the mirrored conductors
             self.init_distance();
             self.init_bc_mirror();
             self.init_conductor_mirror();
@@ -47,25 +39,28 @@ classdef MirrorConductor < handle
     %% public api
     methods (Access = public)
         function bc_mirror = get_bc_mirror(self)
-            % get the post processed BC
-            %     - bc_mirror - struct with the post processed BC
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Get the post processed boundary conditions.
+            %
+            %    Returns:
+            %        bc_mirror (struct): struct with the post processed boundary conditions
             
             bc_mirror = self.bc_mirror;
         end
         
         function distance = get_distance(self)
-            % get the struct with the distances required for the computations
-            %     - distance - struct with the distances required for the computations
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Get the struct with the distances required for the computations.
+            %
+            %    Returns:
+            %        distance (struct): struct with the distances required for the computations
             
             distance = self.distance;
         end
         
         function conductor_mirror = get_conductor_mirror(self)
-            % get the mirrored conductors
-            %     - conductor_mirror - struct with the mirrored conductors
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Get the mirrored conductors.
+            %
+            %    Returns:
+            %        conductor_mirror (struct): struct with the mirrored conductors
             
             conductor_mirror = self.conductor_mirror;
         end
@@ -74,16 +69,20 @@ classdef MirrorConductor < handle
     %% private api
     methods (Access = private)
         function init_distance(self)
-            % create the struct with the distances required for the computations
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Create the struct with the distances required for the computations.
+            %
+            %    The pole distance is required for the inductance computation.
+            %    The length of the conductor is used for scaling the inductance.
             
             self.distance.d_pole = self.bc.d_pole;
             self.distance.z_size = self.bc.z_size;
         end
         
         function self = init_bc_mirror(self)
-            % create the post processed BC
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Create the post processed boundary conditions.
+            %
+            %    Contains the axis for the flipping of the mirror.
+            %    Contains the size of the domain to be flipped.
             
             self.bc_mirror.d_x = self.bc.x_max-self.bc.x_min;
             self.bc_mirror.x_flip = (self.bc.x_min+self.bc.x_max)./2;
@@ -92,36 +91,45 @@ classdef MirrorConductor < handle
         end
         
         function self = init_conductor_mirror(self)
-            % create the mirrored conductors
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            
+            % Create the mirrored conductors.
+            %
+            %    Identify the boundary condition type.
+            %    Add the required mirror.
+
             % init the data
             self.conductor_mirror = struct('x', [], 'y', [], 'k', [], 'idx_conductor', [], 'n_conductor', 0);
             
             % create the different images (without including the original conductors)
             switch self.bc.type
                 case 'none'
-                    % pass
+                    % no magnetic boundary: no mirror
                 case 'x_min'
+                    % single magnetic boundary: single mirror
                     self.add_image(-1, 0);
                 case 'x_max'
+                    % single magnetic boundary: single mirror
                     self.add_image(+1, 0);
                 case 'y_min'
+                    % single magnetic boundary: single mirror
                     self.add_image(0, -1);
                 case 'y_max'
+                    % single magnetic boundary: single mirror
                     self.add_image(0, +1);
                 case 'xx'
-                    n_idx = -self.bc.n_mirror:self.bc.n_mirror;
+                    % two magnetic boundaries: mirror in one direction
+                    n_idx = -self.bc.n_mirror:+self.bc.n_mirror;
                     for i=n_idx
                         self.add_image(i, 0);
                     end
                 case 'yy'
-                    n_idx = -self.bc.n_mirror:self.bc.n_mirror;
+                    % two magnetic boundaries: mirror in one direction
+                    n_idx = -self.bc.n_mirror:+self.bc.n_mirror;
                     for i=n_idx
                         self.add_image(0, i);
                     end
                 case 'xy'
-                    n_idx = -self.bc.n_mirror:self.bc.n_mirror;
+                    % four magnetic boundaries: mirror in all directions
+                    n_idx = -self.bc.n_mirror:+self.bc.n_mirror;
                     for i=n_idx
                         for j=n_idx
                             self.add_image(i, j);
@@ -133,10 +141,15 @@ classdef MirrorConductor < handle
         end
         
         function add_image(self, idx_x, idx_y)
-            % create an image of the original conductor (index of the original image are allowed)
-            %     - idx_x - integer with the x index of the image
-            %     - idx_y - integer with the y index of the image
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Create an image of the original conductor (avoid duplicated image).
+            %
+            %    The indices represents the shift with respect to the original conductors.
+            %    The indices zero/zero represents the original conductors.
+            %    The indices zero/zero is ignored to avoid a duplicated image.
+            %
+            %    Parameters:
+            %        idx_x (integer): x index of the image
+            %        idx_y (integer): y index of the image
             
             % prevent the creation of an image which is identical to the orignial conductors
             if (idx_x~=0)||(idx_y~=0)
@@ -145,10 +158,11 @@ classdef MirrorConductor < handle
         end
         
         function add_image_sub(self, idx_x, idx_y)
-            % create an image of the original conductor (index of the original image are not allowed)
-            %     - idx_x - integer with the x index of the image
-            %     - idx_y - integer with the y index of the image
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Create an image of the original conductor.
+            %
+            %    Parameters:
+            %        idx_x (integer): x index of the image
+            %        idx_y (integer): y index of the image
             
             % shift of the image
             d_x_tmp = idx_x.*self.bc_mirror.d_x;

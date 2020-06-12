@@ -1,4 +1,28 @@
 function [I_group, V_group] = solve_current_sharing(f_vec, L, group)
+% Solve a current sharing problem between different conductors.
+%
+%    Solve a current sharing problem from the inductance matrix:
+%        - between different conductor groups
+%        - conductor groups are defined with the indices of the conductors 
+%        - the resistance of the conductors composing a group is specified 
+%        - the total current of the different conductor groups is specified
+%        - the current sharing between the conductor inside a group is computed
+%        - the voltage drop for the different conductor inside a group is computed
+%
+%    The problem is solved by:
+%        - equalizing the voltage drop between all the conductors composing a group
+%        - imposing that the sum of the currents inside a conductor group equal the given value 
+%
+%    Parameters:
+%        f_vec (vector): frequency vector
+%        L (matrix): inductance matrix between the conductors
+%        group (cell): definition of the different conductor groups (indices, resistance, current)
+%
+%    Returns:
+%        I_group (cell): current sharing for the different conductor groups
+%        V_group (cell): voltage drop for the different conductor groups
+%
+%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 % indices for the current and voltage vectors
 n_current = length(L);

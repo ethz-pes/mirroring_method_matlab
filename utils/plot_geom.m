@@ -1,4 +1,11 @@
 function plot_geom(bc, conductor)
+% Plot the geometry of the conductors and boundary conditions.
+%
+%    Parameters:
+%        bc (struct): definition of the boundary conditions (type, position, permeability, number of mirror)
+%        conductor (struct): definition of the conductors (position, radius, number)
+%
+%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 hold('on');
 plot(1e3.*[bc.x_min bc.x_min], 1e3.*[bc.y_min bc.y_max], 'Color', 'r', 'LineWidth', 2);
@@ -16,11 +23,12 @@ ylabel('y [mm]')
 end
 
 function plot_conductor(x, y, d_c)
-% Plot a conductor
-%     - x - x position
-%     - y - y position
-%     - d_c - diameter
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Plot a conductor.
+%
+%    Parameters:
+%        x (float): x coordinate of the conductor
+%        y (float): y coordinate of the conductor
+%        d_c (float): diameter of the conductor
 
 if d_c==0
     plot(x, y, 'o', 'MarkerEdgeColor', 'r', 'MarkerFaceColor', 'r', 'MarkerSize', 6);

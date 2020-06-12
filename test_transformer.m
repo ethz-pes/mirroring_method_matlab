@@ -1,8 +1,14 @@
 function test_transformer()
-% Test the mirroring method for a transformer winding window.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Test the mirroring method for a transformer (winding window).
+%
+%    The conductors are defined (pimary and secondary).
+%    The field patterns and the inductance are computed.
+%
+%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 close('all');
+addpath('mirroring_method')
+addpath('utils')
 
 %% param
 
@@ -44,16 +50,16 @@ obj = MirroringMethod(bc, conductor);
 % current excitation
 I_lv = +5.0.*ones(1,4);
 I_hv = -2.5.*ones(1,8);
-I_vec = [I_lv I_hv].';
+I = [I_lv I_hv].';
 
 % inductance matrix
-plot_inductance_matrix(obj)
+plot_inductance_matrix('inductance matrix', obj)
 
 % magnetic field in the conductors
-plot_field_conductor(obj, I_vec);
+plot_field_conductor('conductor field', obj, I);
 
 % magnetic field everywhere
-plot_field_space(obj, I_vec, 30, 60, 0.5e-3);
+plot_field_space('field distribution', obj, I, 30, 60, 0.5e-3);
 
 end
 
