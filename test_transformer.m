@@ -4,7 +4,7 @@ function test_transformer()
 %    The conductors are defined (pimary and secondary).
 %    The field patterns and the inductance are computed.
 %
-%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+%    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 close('all');
 addpath('mirroring_method')

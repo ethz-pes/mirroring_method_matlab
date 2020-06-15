@@ -5,7 +5,7 @@ function plot_geom(bc, conductor)
 %        bc (struct): definition of the boundary conditions (type, position, permeability, number of mirror)
 %        conductor (struct): definition of the conductors (position, radius, number)
 %
-%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+%    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 hold('on');
 plot(1e3.*[bc.x_min bc.x_min], 1e3.*[bc.y_min bc.y_max], 'Color', 'r', 'LineWidth', 2);

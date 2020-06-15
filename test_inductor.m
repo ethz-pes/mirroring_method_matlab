@@ -5,7 +5,7 @@ function test_inductor()
 %    The air gaps are modeleed as virtual conductors.
 %    The field patterns and the inductance are computed.
 %
-%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+%    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 close('all');
 addpath('mirroring_method')

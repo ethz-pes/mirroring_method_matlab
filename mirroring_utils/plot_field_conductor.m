@@ -6,7 +6,7 @@ function plot_field_conductor(name, obj, I)
 %        obj (MirroringMethod): instance of the mirroring solver
 %        I (vector): vector with the current excitation of the conductors
 %
-%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+%    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 % get value
 bc = obj.get_bc();

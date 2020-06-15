@@ -22,7 +22,7 @@ function [I_group, V_group] = solve_current_sharing(f_vec, L, group)
 %        I_group (cell): current sharing for the different conductor groups
 %        V_group (cell): voltage drop for the different conductor groups
 %
-%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+%    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 % indices for the current and voltage vectors
 n_current = length(L);

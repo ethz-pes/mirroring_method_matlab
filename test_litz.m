@@ -5,7 +5,7 @@ function test_litz()
 %    The field patterns and the inductance are computed.
 %    The frequency dependent current sharing problem is solved for the litz wires.
 %
-%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+%    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 close('all');
 addpath('mirroring_method')

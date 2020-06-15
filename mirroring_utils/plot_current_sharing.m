@@ -7,7 +7,7 @@ function plot_current_sharing(name, f_vec, I_mat, V_vec)
 %        I_mat (matrix): current matrix (different conductors, different frequencies)
 %        V_vec (vector): voltage vector (different frequencies)
 %
-%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+%    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 % init figure
 figure('name', name);

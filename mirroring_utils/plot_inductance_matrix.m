@@ -5,7 +5,7 @@ function plot_inductance_matrix(name, obj)
 %        name (str): name of the figure
 %        obj (MirroringMethod): instance of the mirroring solver
 %
-%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+%    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 % get inductance
 L = obj.get_L();

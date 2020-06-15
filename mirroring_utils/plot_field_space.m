@@ -9,7 +9,7 @@ function plot_field_space(name, obj, I, n_x, n_y, margin)
 %        n_y (integer): number of points to evaluate in the y direction
 %        margin (float): margin from the boundaries to evaluate the field
 %
-%    (c) 2019-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+%    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 % get value
 bc = obj.get_bc();
