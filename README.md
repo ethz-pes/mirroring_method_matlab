@@ -63,7 +63,7 @@ The tool is tested with the following MATLAB setup:
 
 ## References
 
-Thw following references explain the theory and applications of the mirroring method:
+The following references explain the theory and applications of the mirroring method:
 * Muehlethaler, J. / Modeling and multi-objective optimization of inductive power components / ETHZ / 2012
 * Ferreira, J.A. / Electromagnetic Modelling of Power Electronic Converters /Kluwer Academics Publishers / 1989.
 * Bossche, A. and Valchev, V. / Inductors and Transformers for Power Electronics / CRC Press / 2005.
