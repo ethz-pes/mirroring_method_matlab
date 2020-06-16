@@ -27,21 +27,21 @@ classdef MirroringMethod < handle
     %        - the column represents the number of operating conditions
     %
     %    Warning: For 2D problem, the energy is infinite for a single conductor (no return path exists).
-    %        - Then the definition of the inductance is (intrisically) ill-formulated.
-    %        - This problem is (partially) adressed by setting a pole at a fixed distance from the conductor.
-    %        - For distances greater than the pole distance, the energy is not anymore considered.
-    %        - This mean that the energy is only defined is the sum of the currents is zero.
+    %        - then the definition of the inductance is (intrisically) ill-formulated.
+    %        - this problem is (partially) adressed by setting a pole at a fixed distance from the conductor.
+    %        - for distances greater than the pole distance, the energy is not anymore considered.
+    %        - this mean that the energy is only defined is the sum of the currents is zero.
     %
     %    Warning: The line conductors (zero radius) represent singularities.
-    %        - The field goes to infinity close to the conductor.
-    %        - The inductance is ill-defined.
+    %        - the field goes to infinity close to the conductor.
+    %        - the inductance is ill-defined.
     %
     %    Warning: The mirroring method can, in some case, features a high computational cost.
-    %        - For some problem, many images can be required.
-    %        - If many conductors are simulated, the (non-sparse) matrices are large.
+    %        - for some problem, many images can be required.
+    %        - if many conductors are simulated, the (non-sparse) matrices are large.
     %
     %    References for the mirroring method:
-    %        - Mühlethaler, J. / Modeling and multi-objective optimization of inductive power components / ETHZ / 2012
+    %        - Muehlethaler, J. / Modeling and Multi-Objective Optimization of Inductive Power Components / ETHZ / 2012
     %        - Ferreira, J.A. / Electromagnetic Modelling of Power Electronic Converters /Kluwer Academics Publishers / 1989.
     %        - Bossche, A. and Valchev, V. / Inductors and Transformers for Power Electronics / CRC Press / 2005.
     %        - Binns, K.J. and Lawrenson, P. J. / Analysis and Computation of Electric and Magnetic Field Problems / Elsevier/ 1973
