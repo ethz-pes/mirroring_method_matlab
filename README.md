@@ -67,7 +67,7 @@ The following references explain the theory and applications of the mirroring me
 * Muehlethaler, J. / Modeling and Multi-Objective Optimization of Inductive Power Components / ETHZ / 2012
 * Ferreira, J.A. / Electromagnetic Modelling of Power Electronic Converters /Kluwer Academics Publishers / 1989.
 * Bossche, A. and Valchev, V. / Inductors and Transformers for Power Electronics / CRC Press / 2005.
-* Binns, K.J. and Lawrenson, P. J. / Analysis and Computation of Electric and Magnetic Field Problems / Elsevier/ 1973
+* Binns, K. and Lawrenson, P. / Analysis and Computation of Electric and Magnetic Field Problems / Elsevier / 1973
 
 ## Author
 
