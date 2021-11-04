@@ -1,5 +1,10 @@
 # Magnetic Mirroring Method with MATLAB
 
+![license - BSD](https://img.shields.io/badge/license-BSD-green)
+![language - MATLAB](https://img.shields.io/badge/language-MATLAB-blue)
+![category - power electronics](https://img.shields.io/badge/category-power%20electronics-lightgrey)
+![status - maintained](https://img.shields.io/badge/status-maintained-green)
+
 This **MATLAB** tool is a complete implementation of the **magnetic mirroring method** also known as **method of images**.
 The complete implementation is **object oriented** and includes several **examples**.
 The tool be used to compute the magnetic properties of different components, e.g., **inductors, transformers, and litz wires**.
