@@ -1,43 +1,38 @@
-function plot_current_sharing(name, f_vec, I_mat, V_vec)
+function plot_current_sharing(name, f_vec, I_mat, V_mat, group)
 % Plot the current sharing between the conductors and the voltage.
 %
 %    Parameters:
 %        name (str): name of the figure
 %        f_vec (vector): frequency vector
-%        I_mat (matrix): current matrix (different conductors, different frequencies)
-%        V_vec (vector): voltage vector (different frequencies)
+%        I_group (cell): current sharing for the different conductor groups
+%        V_group (cell): voltage drop for the different conductor groups
 %
-%    (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
+%    (c) 2016-2025, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
 % init figure
 figure('name', name);
 
 % plot current sharing
-subplot(2,2,1)
-semilogx(f_vec, abs(I_mat))
-grid('on')
-xlabel('f [Hz]')
-ylabel('I [A]')
-title('Current Amplitude')
-subplot(2,2,2)
-semilogx(f_vec, rad2deg(unwrap(angle(I_mat))))
-grid('on')
-xlabel('f [Hz]')
-ylabel('phi [deg]')
-title('Current Phase')
+for i=1:length(group)
+    % extract group
+    name = group{i}.name;
+    idx = group{i}.idx;
 
-% plot induced voltage
-subplot(2,2,3)
-loglog(f_vec, abs(V_vec))
-grid('on')
-xlabel('f [Hz]')
-ylabel('V [V]')
-title('Voltage Amplitude')
-subplot(2,2,4)
-semilogx(f_vec, rad2deg(unwrap(angle(V_vec))))
-grid('on')
-xlabel('f [Hz]')
-ylabel('phi [deg]')
-title('Voltage Phase')
+    % plot current
+    subplot(length(group), 2, (2.*(i-1))+1)
+    semilogx(f_vec, abs(I_mat(idx, :)), 'LineWidth', 1)
+    grid('on')
+    xlabel('f [Hz]')
+    ylabel('I [A]')
+    title(['Current : ' name])
+
+    % plot voltage
+    subplot(length(group), 2, (2.*(i-1))+2)
+    loglog(f_vec, abs(V_mat(idx, :)), 'LineWidth', 1)
+    grid('on')
+    xlabel('f [Hz]')
+    ylabel('V [V]')
+    title(['Voltage : ' name])
+end
 
 end

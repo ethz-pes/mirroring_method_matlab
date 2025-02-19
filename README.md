@@ -35,7 +35,7 @@ This tool is developed by the **Power Electronic Systems Laboratory at ETH Zuric
 The following examples are included:
 * [test_inductor.m](test_inductor.m) - Simulation of an inductor with air gaps
 * [test_transformer.m](test_transformer.m) - Simulation of a transformer
-* [test_litz.m](test_litz.m) - Current sharing problem for untwisted litz wires
+* [test_litz_wire.m](test_litz_wire.m) - Current sharing problem for litz wires
 
 ### Inductor Field
 
@@ -64,7 +64,7 @@ The following examples are included:
 ## Compatibility
 
 The tool is tested with the following MATLAB setup:
-* Tested with MATLAB R2018b or 2019a
+* Tested with MATLAB R2018b / 2019a / 2024b
 * No toolboxes are required.
 * Compatibility with GNU Octave not tested but probably easy to achieve.
 
@@ -83,4 +83,4 @@ The following references explain the theory and applications of the mirroring me
 ## License
 
 * This project is licensed under the **BSD License**, see [LICENSE.md](LICENSE.md).
-* This project is copyrighted by: (c) 2016-2020, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod.
+* This project is copyrighted by: (c) 2016-2025, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod.
