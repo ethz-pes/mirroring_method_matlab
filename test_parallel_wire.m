@@ -1,9 +1,9 @@
-function test_litz_wire()
-% Test the mirroring method with a current sharing problem between litz wires.
+function test_parallel_wire()
+% Test the mirroring method with a current sharing problem between parallel wires.
 %
-%    Two parallel litz wires are defined (with seven strands).
+%    Two parallel wires are defined (with seven strands).
 %    The field patterns and the inductance are computed.
-%    The frequency dependent current sharing problem is solved for the litz wires.
+%    The frequency dependent current sharing problem is solved for the wires.
 %
 %    (c) 2016-2025, ETH Zurich, Power Electronic Systems Laboratory, T. Guillod
 
@@ -94,46 +94,7 @@ R = R_litz.*diag(ones(1, n_total));
 [I_mat, V_mat] = solve_current_sharing(n_total, f_vec, R, L, group);
 
 % plot the results
-plot_current_sharing('untwisted wire', f_vec, I_mat, V_mat, group)
+plot_current_sharing('current sharing', f_vec, I_mat, V_mat, group)
 
-%% solve current sharing (fully twisted wire)
-
-% defines the strands permutations for the wires (all the strands)
-wgt = (1./n_litz).*ones(1, n_litz);
-prm = zeros(n_total, n_litz);
-for i=1:n_litz
-    prm_1 = circshift(idx_litz_1, i);
-    prm_2 = circshift(idx_litz_2, i);
-    prm(:, i) = [prm_1 prm_2];
-end
-
-% permute the matrices to model the twisted wires
-[R_twisted, L_twisted] = solve_twisting(n_total, R, L, wgt, prm);
-
-% solve the current sharing problem
-[I_mat, V_mat] = solve_current_sharing(n_total, f_vec, R_twisted, L_twisted, group);
-
-% plot the results
-plot_current_sharing('fully twisted wire', f_vec, I_mat, V_mat, group)
-
-%% solve current sharing (partially twisted wire)
-
-% defines the strands permutations for the wires (except the middle strand)
-wgt = (1./(n_litz-1)).*ones(1, n_litz-1);
-prm = zeros(n_total, n_litz-1);
-for i=1:(n_litz-1)
-    prm_1 = [idx_litz_1(1) circshift(idx_litz_1(2:end), i)];
-    prm_2 = [idx_litz_2(1) circshift(idx_litz_2(2:end), i)];
-    prm(:, i) = [prm_1 prm_2];
-end
-
-% permute the matrices to model the twisted wires
-[R_twisted, L_twisted] = solve_twisting(n_total, R, L, wgt, prm);
-
-% solve the current sharing problem
-[I_mat, V_mat] = solve_current_sharing(n_total, f_vec, R_twisted, L_twisted, group);
-
-% plot the results
-plot_current_sharing('partially twisted wire', f_vec, I_mat, V_mat, group)
 
 end

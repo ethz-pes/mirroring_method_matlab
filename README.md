@@ -35,7 +35,7 @@ This tool is developed by the **Power Electronic Systems Laboratory at ETH Zuric
 The following examples are included:
 * [test_inductor.m](test_inductor.m) - Simulation of an inductor with air gaps
 * [test_transformer.m](test_transformer.m) - Simulation of a transformer
-* [test_litz_wire.m](test_litz_wire.m) - Current sharing problem for litz wires
+* [test_parallel_wire.m](test_parallel_wire.m) - Current sharing problem for parallel wires
 
 ### Inductor Field
 
