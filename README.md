@@ -28,8 +28,6 @@ The following additional features and constraints exist:
 * Line conductors (without zero radius) are accepted
 * No HF effects (skin or proximity) are considered (can be added in post-processing)
 
-This tool is developed by the **Power Electronic Systems Laboratory at ETH Zurich** and is available under the **BSD License**. The code is also available on the ETH Data Archive.
-
 ## Examples
 
 The following examples are included:
