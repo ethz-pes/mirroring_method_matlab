@@ -96,5 +96,4 @@ R = R_litz.*diag(ones(1, n_total));
 % plot the results
 plot_current_sharing('current sharing', f_vec, I_mat, V_mat, group)
 
-
 end
